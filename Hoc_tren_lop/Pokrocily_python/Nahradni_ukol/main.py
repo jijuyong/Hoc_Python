@@ -1,27 +1,17 @@
 
 class BankovniUcet:
-    def __init__(
-        self,
-        cislo_uctu: str,
-        majitel: str,
-        pocatecni_zustatek: float = 0.0
-    ) -> None:
+    def __init__(self,cislo_uctu: str,majitel: str,pocatecni_zustatek: float = 0.0) -> None:
         self._cislo_uctu = cislo_uctu
-        self._majitel = ""
         self.majitel = majitel
-
-        self._zustatek = 0.0
         self.zustatek = pocatecni_zustatek
-
         self._historie: list[tuple[str, float]] = []
 
-        if pocatecni_zustatek > 0:
+        if pocatecni_zustatek is not None:
             self._historie.append(("Vklad", pocatecni_zustatek))
 
     @property
     def zustatek(self) -> float:
         return self._zustatek
-
     @zustatek.setter
     def zustatek(self, value: float) -> None:
         if value < 0:
@@ -31,7 +21,6 @@ class BankovniUcet:
     @property
     def majitel(self) -> str:
         return self._majitel
-
     @majitel.setter
     def majitel(self, novy_jmeno: str) -> None:
         novy_jmeno = novy_jmeno.strip()
@@ -87,14 +76,9 @@ class BankovniUcet:
 class Banka:
     def __init__(self, nazev: str) -> None:
         self.nazev = nazev
-        self._ucty: dict[str, BankovniUcet] = {}
+        self._ucty: dict[str, BankovniUcet] = {}#key la stk,value kieu bankovni ucet
 
-    def zaloz_ucet(
-        self,
-        cislo_uctu: str,
-        majitel: str,
-        pocatecni_vklad: float = 0.0
-    ) -> BankovniUcet:
+    def zaloz_ucet(self,cislo_uctu: str,majitel: str,pocatecni_vklad: float = 0.0) -> BankovniUcet:
         if cislo_uctu in self._ucty:
             raise ValueError(f"Ucet {cislo_uctu} jiz existuje.")
 
