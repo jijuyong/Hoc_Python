@@ -144,7 +144,7 @@ class HandTracker:
         return int(x*w), int(y*h)
 
     def is_palm_up(self, hand_landmarks, frame_shape):
-        h, w = frame_shape[:2]
+        h, w = frame_shape[:2] # lay hai phan tu dau tien, ke phan tu thu 3
         lm = hand_landmarks.landmark
 
         # Lay 3 diem tren long ban tay
@@ -183,9 +183,6 @@ class HandTracker:
         # Mat phang long ban tay gan nam ngang
         # thi vector phap tuyen gan truc doc cua camera
         return abs(normal[1]) > 0.65
-
-    
-
 
     def is_hand_open(self, hand_landmarks):
         lm = hand_landmarks.landmark
